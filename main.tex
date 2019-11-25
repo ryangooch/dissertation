@@ -1,0 +1,101 @@
+\documentclass[]{csuthesis} %draft means that it won't actually render any pictures (graphs) it will just include space for them.
+
+\usepackage{setspace}
+\usepackage{booktabs}
+%\usepackage{breqn}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{grffile} % uses last dot in filename for extension instead of first
+\usepackage{color,soul}
+\usepackage[utf8]{inputenc}
+\usepackage{bm}
+
+%\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+%\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+%\newcommand{\un}[1]{\ensuremath{\ \mathrm{#1}}}
+
+% As soon as you get this to compile, your first step
+% should be to remove the draft option, so that your
+% figures will show up.  Right now it's there so that
+% the document will compile as is, with sample figures.
+
+\title[Transfer Learning with Weather Radar]{Transfer Learning with Weather Radar}
+\author{S. Ryan Gooch}
+\departmentname{Department of Electrical and Computer Engineering}
+\gradterm{Spring} %The semester that you are going to turn this in.
+\advisor{V. Chandrasekar}
+\committee{ Margaret Cheney \and José Chavéz \and Sid Suryanarayanan } %separate committee names with \and
+%committee names should not have any honorifics (i.e. NO Dr., PhD, professor, etc.)  Just names.
+\copyrighttext{Copyright by S. Ryan Gooch 2019 \\ All Rights Reserved} %this is optional, but if used, should be of this form.
+
+\setstretch{1.95}
+% They are my personal shorthand for derivatives.
+%\newcommand{\deriv}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+%\newcommand{\dby}[1]{\frac{\mathrm{d}}{\mathrm{d}#1}}
+%\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
+%\newcommand{\pby}[1]{\frac{\partial}{\partial#1}}
+%\renewcommand\Re{\operatorname{Re}}
+%\renewcommand\Im{\operatorname{Im}}
+%\DeclareMathOperator*{\argmin}{arg\,min}
+
+%\usepackage{lipsum}%this package provides nonsense text for testing document layouts.  Not needed for real thesis.
+% \setcounter{tocdepth}{3}
+
+\begin{document}
+\frontmatter
+%turns the page numbering to roman, and does some other stuff.
+
+%ABSTRACT: note that for amsbook (which is basically the class we are copying), the abstract must be declared before the title.  It prints as part of maketitle.
+\begin{abstract}
+This work presents the culmination of the doctoral research by the author in exploring modern methods of Data Discovery in weather radar data, improvements in the cyberinfrastructure concerning multi-dimensional gridded data, with a concentration on real-time data streaming, and experimental use cases involving real world datasets. 
+Included in this work is a successful method for the classification of weather radar image data using convolutional neural networks, with inspiration drawn from the subfield of Transfer Learning in the Computer Vision community. 
+Once this model was developed, it was deployed on single radar data from each of the radars in the CASA DFW network to assign labels to support a human-in-the-loop semi-supervised method for data discovery in the weather radar scans. 
+This model has been furthermore applied to the WSR-88D network of dual-polarimetric weather radars in the United States to demonstrate the model’s generalizability, and its utility in discovering phenomena of interest in vast datasets. 
+This work discusses the end-to-end development of the data discovery system, with special focus on initial data labeling, choices and tradeoffs in model architecture, and training concerns in the machine learning model. 
+This represents the first published research known to the authors on utilizing the power of transfer learning to transfer the learning of high quality convolutional neural networks trained on photographic images to the weather radar image domain.
+\end{abstract}
+
+%\begin{acknowledgements}
+%%The work presented here is supported by AFOSR grant NUMBER.  
+%The data collected is provided by the NSF CSU-CHILL radar facility.  The data collection for this work occurred over multiple years and was possible due to the efforts of Pat Kennedy who collected the data used here.  Regular discussions with Dr. Margaret Cheney, Dr. Louis Scharf, and Dr. Chandrasekar have directed this research and enabled continuous progress.  
+%
+%On a personal note, I must thank my wife, Catherine, for her patience and encouragement.  I owe Dr. Chandrasekar my gratitude for his mentorship, support, and direction.  I also must thank all of the group members and colleagues at CSU for their time and help. 
+%\end{acknowledgements}
+
+\maketitle
+% maketitle is a huge command in a small package.  It will render the title page, copyright page, acknowledgements, abstract, and probably a bunch of other stuff that I'm forgetting about.  If you choose not to define copyright, acknowledgements, etc, it automatically doesn't render them.
+
+% other optional frontmatter could go somewhere in here.  dedication, biography, etc.  Grad school lists approved frontmatter pages somewhere.
+% most frontmatter than I consider silly is not yet automated.  Also most frontmatter doesn't have any explicit style requirements, so I feel justified in ignoring it.
+
+%\setcounter{tocdepth}{3} % Added for draft.  Comment for "published" version
+
+\tableofcontents %don't move this around too much
+\listoftables %optional, but this is the spot it should go
+\listoffigures %optional, but this is the right location for it
+
+\mainmatter %switches page numbering to normal, resets page counter, etc.
+
+\input{introduction}
+\input{background}
+\input{meteorology}
+\input{classifying}
+\input{bestmodel}
+\input{realtime}
+\input{summary}
+
+\backmatter
+
+\bibliographystyle{ieeetr}
+\bibliography{gooch_bib} %note that this is a separate file
+
+\appendix %this switches to apppendix mode.  Now any new chapters will be appendices instead of chapters.
+\input{appendix}
+\input{compute}
+
+
+\end{document}

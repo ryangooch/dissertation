@@ -1,0 +1,55 @@
+\chapter{Appendix A - Tools}
+\label{sec:appendix-a-tools}
+
+One of the goals of this dissertation is to provide guidance to both weather radar data specialists and atmospheric scientists in utilizing modern software tools to assist in their research.
+ This need, in addition to the cause of providing an in depth look at the entire workflow for the purposes of documentation of academic methods, leads to the formation of this section.
+
+Herein is described the main software and hardware tools that facilitated the research in this document. 
+The main programming language and libraries for analysis, machine learning, and display of data will be discussed, in addition to the hardware used in implementing the research stack.
+
+It should be noted that, with the exception of a few tools designed by the author for the express purposes above, these tools are available to all researchers, scientists, engineers, and enthusiasts.
+
+\section{Python}
+\label{sec:appendix-a-python}
+
+Python was used for most of the analysis, server design, file handling, and access to machine learning APIs, throughout this work. 
+As an interpreted language, it allowed quick prototyping of code and data exploration. 
+Its large community of active developers led to the ability to quickly find solutions to issues encountered, while also producing the ecosystem of tools that simplified the process of managing and interpreting data, generating models, and managing reproducible workflows. 
+It also directly provided an interface for accessing the data, as well as the hardware tools that made this research possible.
+
+\subsection{NumPy}
+\label{ssec:appendix-a-numpy}
+
+Numpy is a python package that exposes an API for creating numerical structures, usually arrays, where the underlying code is written in C.
+The functional API is designed following standards, styles, and naming conventions of MATLAB and follows these where possible.
+
+\subsection{Scikit-Learn}
+\label{ssec:appendix-a-scikitlearn}
+
+Scikit-Learn is a package under the SciPy umbrella (like NumPy), whose focus is in providing data scientists and machine learning researchers a set of tools to assist common tasks, such as handling datasets and managing pipelines and workflows, along with certain plots.
+This toolkit was used in this research mostly with respect to managing the train/val/test splits on the datasets, and in evaluating models.
+
+\subsection{Tensorflow and Keras}
+\label{ssec:appendix-a-tf}
+
+Tensorflow, along with its wrapper and API keras, were used to build and train the deep learning networks.
+Tensorflow is a large open source package that seeks to harness the power of CUDA-enabled GPUs in training and testing on deep neural networks, while keras is closely tied to Tensorflow and exposes much of its functionality for researchers who may not be experts in computer science.
+As its name suggests, the numerical language in Tensorflow are in tensors, where complicated datasets, such as the image datasets in this research, can be succinctly and efficiently represented.
+Additionally, while many models are available in so-called \textit{model zoos}, this research used the convolutional bases available in the keras toolkit.
+ 
+\section{Alternatives to Python}
+\label{ssec:appendix-a-alternatives}
+
+It is of some importance to mention alternatives to the tools utilized in this research.
+Each has its advantages and disadvantages.
+The tools used above reflect researcher choice based on previous experience and convenience in implementing the aforementioned tasks, though these could have been implemented in many languages and with many toolkits.
+
+Even within python, there are other packages of note.
+Theano can be used directly as an access point for GPU functionality instead of tensorflow.
+Another competitor in this arena is Torch, with its python API, PyTorch.
+Many researchers also use Caffe, with python wrappers.
+
+Outside of python, R and Julia are potentially useful and in turn used by many data scientists.
+And many workflows include components of all of the above, in addition to bash scripting.
+
+Future additions to this proposal include more discussion on the exact workflow used, as well as links to a finalized Github repository for reproducibility. 
