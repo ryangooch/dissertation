@@ -322,13 +322,13 @@ During training, the weights in the convolutional base model are held constant, 
 No fine-tuning was employed in this test.
 Results of training can be found in Figure \ref{fig:classifying_conv_bases}.
 
-\begin{figure}
+\begin{figure}[ht]
 	\includegraphics[width=\textwidth]{./thesis_code/vgg16_top_model.png}
 	\caption{End-to-end deep learning architecture, with VGG16 convolutional base and bespoke top model.}
 	\label{fig:classifying_architecture}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{./thesis_code/plots/train-val-loss_two-nets_three-channels-duplicated.png}
@@ -394,7 +394,7 @@ We designed an experiment where the MNIST-Fashion data was colormapped according
 
 Refer to Figure \ref{fig:classifying_mnist-fashion_colormaps} for example images from three image classes, represented by each of the colormaps in this experiment.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{./thesis_code/plots/mnist_fashion_examples_colormapped.png}
 	\caption{Various images from MNIST-Fashion dataset, visualized using different colormaps. Images appear blurry as they are resampled versions low-resolution ($[28 x 28]$) inputs.}
@@ -405,7 +405,7 @@ The deep learning model described above was trained and validated separately usi
 As above, training data was augmented by random transformations chosen from pre-determined parameters.
 The training and validation characteristics are shown below in Figure \ref{fig:classifying_colormaps-short-training}.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{./thesis_code/plots/train-val-acc_colormaps.png}
 	\caption{First 30 epochs in training deep learning model, with input image representations derived from three colormaps, black \& white, viridis, and NWS Reflectivity}
@@ -455,7 +455,7 @@ To test this hypothesis, we employ the following strategy for each of the three 
 The goal of this experiment is in part to fundamentally understand that maximum learning capabilities of the end-to-end convolutional neural network model with respect to the various colormapped input datasets.
 The results are shown in Figure \ref{fig:classifying_longtraining_finetuning} below.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\begin{subfigure}[b]{\textwidth}
 		\includegraphics[width=\textwidth]{./thesis_code/plots/20190425_200epoch_finetuning_mnistfashion_loss.png}
@@ -485,7 +485,7 @@ We can have some confidence now, that the model will be able to learn and classi
 This is particularly useful in the case of the CASA DFW data, which is stored not only in NetCDF form for the raw data, but also has pregenerated radar moments for each scan to assist in human viewing of historical data.
 The experiments regarding this data, as well as its usage in classifying precipitation regimes, will be detailed in the next section.
 
-\section{Reflectivity Alone - CASA DFW}
+\section{Classifying Reflectivity - CASA DFW}
 \label{sec:classifying_zhcasa}
 
 % Hand labeling data from Midlothian, separated into two classes, one for each precipitation regime, 
@@ -565,7 +565,7 @@ For June, convective precipitation was identified, while no stratiform scans wer
 This is perhaps to be expected, given the warmth in the Dallas-Fort Worth area in the peak summer months, and a higher likelihood of convective activity.
 Some sample scans identified are shown below.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{./thesis_code/plots/midlothian-tx-20180604-115830-ref.png}
@@ -593,7 +593,7 @@ Some sample scans identified are shown below.
 	\label{fig:classifying_datadiscovery}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{./thesis_code/plots/midlothian-tx-20180903-063419-ref.png}
@@ -620,19 +620,10 @@ Some sample scans identified are shown below.
 	\caption{Example data that was discovered by model. These scans were selected randomly from a large dataset from the month of June 2018, at the XMDL radar. Unlike in Figure \ref{fig:classifying_datadiscovery}, there were more stratiform predictions.}
 	\label{fig:classifying_datadiscovery_201809}
 \end{figure}
+
 \subsection{CASA - Generated RGB Colormapped Images}
 \label{ssec:classifying_casargbdiscovery}
 
 We can generate three-channel pseudo-images where each channel in the image encodes data from different radar variables.
 This sort of research has been tested in assisting human visualization and classification before, but it is hypothesized that this could assist a deep learning model in making inferences, especially regarding localized phenomena where radar variable interactions must be considered in order to make correct classifications.
 This is an area of proposed research.
-
-\subsection{NEXRAD}
-\label{ssec:classifying_nexraddiscovery}
-
-Future work: Applying above learning to NEXRAD datasets and deploying model on AWS data for data discovery is one major goal for this dissertation research prior to final defense.
-
-\subsection{Multi-Channel Radar Data - NEXRAD}
-\label{ssec:classifying_3channelnexrad}
-
-As with CASA, using multi-channel pseudo-images in classifying NEXRAD data.

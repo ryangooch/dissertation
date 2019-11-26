@@ -1,51 +1,29 @@
-\chapter{Summary and Proposal}
+\chapter{Summary}
 \label{sec:summary}
 
 Data Discovery is an issue of extreme importance throughout the geosciences, where many petabytes of data have been produced, and the speed and quality of the production of the data have outstripped the ability to analyze and tag the data.
 Efforts are ongoing throughout the field of geosciences to bridge this gap, enhancing cyberinfrastructure via modern computing and networking capabilities, along with developing the social aspects in managing the need for these developments.
 Unfortunately, the effort to extend these advances to the subfield of weather radar data has not present to this point.
 
-The research in this proposal details the current progress in efforts to apply transfer learning techniques to the problem of weather radar image classification.
+The research in this proposal details the current progress in efforts to apply transfer learning techniques to the problem of weather radar image classification, specifically with respect to colormapped images of weather radar data.
 A set of experiments was detailed that confirm the capabilities of the chosen end-to-end deep learning model to learn to classify intensity data encoded in images.
 Additionally, a hand-labeled dataset of weather radar reflectivity images was generated to aid in training said models, which in turn were used to discover more data.
 
+Once a dataset was labeled and the classifier was trained, the model was deployed on two months worth of unseen data.
+These two months were composed of over 85,000 weather radar images and would constitute a laborious, repetitive, and time-consuming task for a researcher if these images were labeled by hand from scratch.
+Our first-pass classifier provided classifications on these images that resulted in many true positives, and in a fraction of the time, since each month was fully classified in about one hour on a laptop with GPU.
+This first step was a major step forward in terms of historical data discovery of weather radar data as it provided reasonably accurate labels for precipitation regimes in weather radar scans for months' worth of data.
 
-\section{Proposed Research Activity}
-\label{sec:summary_proposed}
+We also extended the effort by hand-curating the predictions on these two months of scans and ensuring false positives were corrected and placed into respective categories.
+Utilizing a best-case model determined by theoretical inspection and empirical experimentation, and combining cutting-edge deep learning techniques, we then trained a new model architecture and deployed this on all scans spanning January 2019 through August 2019.
+This dataset encompassed over 330,000 weather radar images.
+Predicted labels matched climatological expections for the region and time frames, and spot checks of labeled images appear to be generally accurate.
 
-The natural next step in the research proposed here is to attempt not only to classify images as belonging to specific precipitation regimes, but to develop a dataset and models capable of finding objects of interest within each image, which may include phenomena such as hail, intense rain, bow echoes, supercells, individual storm cells, and gust fronts.
-Additionally: illustrating the utility in these models learning to classify images produced by radars in the NEXRAD network; fully developing the dataset from all radars in the CASA DFW network; and, finalizing models trained on fully developed dataset of images classified by precipitation regimes.
+This final effort produced a fully trained deep learning model capable of greater generalization ability, and can be used to identify precipitation regimes in data spanning years at a radar in a single day on constrained compute systems.
+It is believed that our research will lead to more expedient data collection periods for researchers, allowing them to perform science more quickly as opposed to being forced to spend greater energy on data collection.
+It is also believed that this research has only scraped the surface of what is possible in applying deep learning techniques to weather radar data.
+For example, we believe that incorporating other weather radar variables such as specific differential phase and differential reflectivity will yield more accurate classifications, and that extending the model to incorporate these variables extends relatively straightforwardly, if the three-channel pseudo-image approach is used.
+Additionally, utilizing more information available in dual-polarization variables may allow image segmentation to occur and lead to a greater number of classifiable categories within the images.
+Image segmentation would allow a classifier to identify which pixels in an image correspond to not only stratiform and convective areas, but also may allow discovery of more localized features, such as gust fronts, hail cells, or performing hydrometeor identification.
 
-Major goals for the proposed research:
 
-\begin{itemize}
-	\item \textbf{Compiling Dataset for CASA DFW}. 
-	This represents many tasks. 
-	The precipitation regime classification model has shown very promising results and demonstrated an ability to discover relevant data, while ignoring data not representing a class of interest.
-	As a result, there is a need to deploy it on all available scans from the CASA DFW network, and have a human expert carefully analyze the resulting classified data to ensure that what is classified as either stratiform or convective precipitation is accurate.
-	This is an iterative process, where the model is trained on a small human-labeled dataset, the trained model finds more data, that data is sanitized, and the model is further trained on the larger dataset.
-	The final goal of this is to release a dataset and an accompanying publication, to allow other researchers to continue work in this field, and to increase awareness of this set of solutions.
-	\item \textbf{Reducing Data Sample Intercorrelation}.
-	Since the dataset is currently small, and since successive radar images share a great deal of information with one another due to the short-term temporal consistency of meteorological phenomena, there is concern that there is high levels of intercorrelation in successive scans.
-	This reduces the independence of the training and testing datasets, leading to concerns of overfitting and poor abilities to fully model the precipitation regimes.
-	In tandem with the "Compiling Dataset" component, this is a situation that needs to be quantified and mitigated.
-	\item \textbf{Extending to NEXRAD Data}.
-	As discussed in Chapters \ref{sec:introduction} and \ref{sec:classifying}, the NEXRAD network represents a topic of interest and it remains to be explored how well these algorithms map to the NEXRAD data space.
-	The WSR-88D radars in the NEXRAD network observe the atmosphere using a different frequency than the radars in the CASA DFW network, and cover a larger spatial area, introducing a range variation from the trained data.
-	The proposed research here is to attempt to apply the current model, trained on the X-band CASA radars, to data collected by NEXRAD radars, and to use the resulting classifications to build a NEXRAD dataset.
-	There is an inherent component here in simply validating that the trained model can work well in the new data space.
-	If not, we propose hand label a dataset and train a new model from scratch, though it is expected that the model's learn will map more or less directly to the new data.
-	\item \textbf{Meteorological Phenomena}.
-	While the models presented in this research provide a state-of-the-art solution in classifying precipitation regimes, there remains a great deal of information in weather radar data.
-	To that end, an exploration should occur into finding other interesting phenomena to attempt to find in the data.
-	This could be localized phenomena like hail, heavy rain, or flash floods, or it could be larger meteorological processes.
-	This may necessitate a further examination into localizing learning by implementing object detection.
-	Already the author has investigated the possibility of implementing meteorological object detection algorithms on these datasets in the search for gust fronts, but currently, no solution has been found.
-	However, the foundations for this analysis have been laid, including the development of an image annotation solution.
-	It is possible there are more "stones to overturn" here.
-	\item \textbf{Utilizing Other Radar Variables}.
-	It can be seen in this research that only reflectivity scans at only 1 degree elevation scan, and only PPI scans, have been used to this point.
-	This may represent an opportunity for developing more insights.
-	There has been effort to design a set of tools capable of producing normalized pseudo-images consisting of relevant radar variables as a conduit for performing the above research.
-	As such, it is planned that this exploration should continue in conjuction with the above.
-\end{itemize}

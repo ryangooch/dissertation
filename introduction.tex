@@ -100,11 +100,14 @@ A set of experiments designed to illustrate the learning ability of the selected
 Next, the target task of weather radar images are classified according to their corresponding precipitation regimes, using hand-labeled data from a radar in the CASA DFW Urban Testbed of X-band weather radars.
 Finally, relevant concerns are detailed regarding the proposed research of deploying models on data from the rest of the CASA DFW network, using multi-channel data with multiple radar variables to produce pseudo-images that encode greater amounts of information for training and testing, and deploying models on the S-band WSR-88D NEXRAD radars.
 
+Chapter \ref{sec:bestmodel} describes the effect of using the model obtained in \ref{sec:classifying} to classify images from two months in 2018 to increase dataset size, as well as the effect of applying new layer technologies to the deep learning architecture.
+A new optimal model is discovered, trained, and then deployed on unseen data from 2019, and a brief statistical and climatological examination is performed based on these classifications.
+
 Chapter \ref{sec:realtime} discusses advances in real-time weather radar data, and details the research in implementing weather radar data as a core component of the Cloud-HOsted Real-Time data Services in the geosciences (CHORDS) portal.
 This chapter details a survey of current methods in real-time weather radar data visualization, along with modern cyberinfrastructure concerns related to the storage and visualization of weather radar data.
 The current CF/Radial standard is discussed, as well as the importance in using such standards to promote findability, accessibility, interoperability, and reusability (FAIR) principles in the domain of weather radar data.
 
-Chapter \ref{sec:summary} summarizes the findings so far in this research project, and outlines the proposed research to complete this dissertation.
+Chapter \ref{sec:summary} summarizes the findings in this research project, and outlines a few potential new avenues that have been opened up as a result of this work.
 
 The Appendix \ref{sec:appendix-a-tools} discusses certain practical considerations for deep learning research and their use in this work.
-Additionally outlined are compute capabilities and constraints, bottlenecks and trade-offs.
+
