@@ -23,7 +23,7 @@ This process greatly reduces the time taken to label the many thousands of candi
 The second item in the list above goes hand-in-hand with the first item, in that in order to improve the generalization ability of the model, we must be able to train the model using many more representations of classes of interest.
 To do this, we must include more data.
 
-\begin{figure}[h]
+\begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{./thesis_code/plots/DL-workflow.png}
 	\caption{Complete end-to-end deep learning architecture devised in this chapter. Note that convolution layers now include batch normalization, while downsampling layers are formed by the new BlurPool layer. These two are tuneable parameters in this architecture, and we tested many configurations to find the best set of parameters and hyperparameters.}
@@ -36,11 +36,100 @@ It is essentially impossible for any one researcher or team of researchers to st
 However, leveraging insights made from recent discoveries remains useful, important, and essential for any effort in this field.
 
 To that end, we propose a set of experiments to determine the optimal model to use for our transfer learning procedure by incorporating recent discoveries from the field into our deep learning model architecture, and testing each variation on a consistent dataset to determine the best architecture.
-The following sections in this chapter detail the efforts made to increase the dataset size, descriptions of the additional model layers, and present the results of the set of experiments that yields the optimum model, given these alterations and improvements.
+The following sections in thhtis chapter detail the efforts made to increase the dataset size, descriptions of the additional model layers, and present the results of the set of experiments that yields the optimum model, given these alterations and improvements.
 We illustrate that the optimum model from the tested configurations is shown in the end-to-end architecture diagram in Figure \ref{fig:end-to-end}.
 
 \section{Increased Dataset Size}
 \label{sec:bestmodel_dataset}
+
+One of the factors with the largest impact of deep learning model generalization ability is that of training dataset size.
+A rule of thumb is that in cases where deep learning is used to solve classification problems regarding several classes, each class needs around 4,000 representative cases in order to provide a comprehensive view of the intrinsic separable features of each class for a deep learning procedure.
+Chapter \ref{sec:classifying} identified around 1,200 images in total for all classes combined, the result of a laborious effort of hand-labeling images from the CASA DFW X-band XMDL radar, with scans covering 2016 and 2017.
+A major goal of that effort was to develop a process by which the trained model could be applied to unseen data to provide classification estimates.
+This process was undertaken in Section \ref{ssec:classifying_discovery}.
+
+We applied the best fit model to data from April 2018 and September 2018.
+These months were chosen as it was suspected that each month included data from each class in Stratiform, Convective, and No Precip.
+Indeed, this was the case.
+Once the predictions were obtained, a trained observer combed through the results and placed incorrect classifications in their correct categories.
+The time taken to perform this task was greatly reduced, since the majority of the scans were considered No Precip and thus ignored.
+This assumption doubtless led to some false negatives being missed, but there were sufficiently many new images considered and added to the dataset through this process.
+Finally, it is worth noting that during this process, the original dataset was hand-corrected for data quality and label-quality issues, resulting in a training dataset more representative of reality than before.
+
+\begin{table}[ht]
+	\centering
+	\begin{adjustbox}{width=\columnwidth,center}
+	\begin{tabular}{c|cccc|cccc|cc}
+		& \multicolumn{4}{|c|}{ Convective } & \multicolumn{4}{|c|}{ Stratiform } & \multicolumn{2}{|c}{ No Precipitation } \\
+		& Date & No. Scans & Date & No. Scans & Date & No. Scans & Date & No. Scans & Date & No. Scans \\
+		\hline
+		\multirow{29}{*}{ Training } & 20160509 & 7 & 20180422 & 84 & 20160502 & 57 & 20180903 & 65 & 20161007 & 2 \\ 
+		& 20160518 & 32 & 20180425 & 128 & 20160511 & 107 & 20180904 & 28 & 20170607 & 73 \\
+		& 20160527 & 31 & 20180426 & 1 & 20160512 & 61 & 20180905 & 108 & 20180401 & 1297 \\
+		& 20160705 & 27 & 20180904 & 89 & 20160519 & 64 & 20180906 & 123 & 20180402 & 193 \\
+		& 20160725 & 60 & 20180905 & 242 & 20170802 & 60 & 20180907 & 54 & 20180403 & 19 \\
+		& 20160727 & 44 & 20180906 & 122 & 20180403 & 15 & 20180908 & 322 & 20180404 & 1 \\
+		& 20160728 & 24 & 20180907 & 168 & 20180406 & 23 & 20180909 & 219 & 20180407 & 68 \\
+		& 20160729 & 8 & 20180908 & 253 & 20180413 & 154 & 20180911 & 113 & 20180410 & 1 \\
+		& 20161007 & 86 & 20180911 & 7 & 20180414 & 58 & 20180912 & 345 & 20180411 & 65 \\
+		& 20170102 & 32 & 20180912 & 65 & 20180421 & 172 & 20180913 & 5 & 20180412 & 1 \\
+		& 20170307 & 42 & 20180913 & 88 & 20180422 & 5 & 20180914 & 6 & 20180413 & 35 \\
+		& 20180403 & 110 & 20180914 & 243 & 20180425 & 301 & 20180915 & 15 & 20180414 & 76 \\
+		& 20180406 & 78 & 20180915 & 265 & 20180426 & 48 & 20180922 & 21 & 20180416 & 5 \\
+		& 20180407 & 111 & 20180916 & 206 & 20180427 & 67 & & & 20180418 & 109 \\
+		& 20180413 & 209 & 20180920 & 135 & & & & & 20180419 & 1 \\
+		& 20180414 & 92 & 20180921 & 373 & & & & & 20180421 & 5 \\
+		& 20180421 & 174 & 20180922 & 427 & & & & & 20180422 & 11 \\
+		& & & & & & & & & 20180423 & 3 \\
+		& & & & & & & & & 20180424 & 31 \\
+		& & & & & & & & & 20180425 & 127 \\
+		& & & & & & & & & 20180428 & 240 \\
+		& & & & & & & & & 20180429 & 31 \\
+		& & & & & & & & & 20180430 & 57 \\
+		& & & & & & & & & 20180921 & 14 \\
+		& & & & & & & & & 20180922 & 2 \\
+		& & & & & & & & & 20180923 & 1 \\
+		& & & & & & & & & 20180924 & 12 \\
+		& & & & & & & & & 20180927 & 1 \\
+		& & & & & & & & & 20180928 & 3 \\ 
+		\hline
+		\multirow{22}{*}{ Testing } & 20160530 & 20 & 20180422 & 16 & 20160526 & 92 & 20180427 & 3 & 20170607 & 60 \\ 
+		& 20160601 & 10 & 20180425 & 20 & 20160815 & 82 & 20180903 & 532 & 20180401 & 141 \\
+		& 20160602 & 16 & 20180903 & 402 & 20180403 & 7 & 20180905 & 7 & 20180402 & 148 \\
+		& 20160705 & 25 & 20180905 & 24 & 20180406 & 4 & 20180906 & 11 & 20180403 & 85 \\
+		& 20160815 & 18 & 20180906 & 235 & 20180407 & 2 & 20180907 & 5 & 20180404 & 144 \\
+		& 20160910 & 21 & 20180907 & 19 & 20180413 & 21 & 20180908 & 37 & 20180405 & 143 \\
+		& 20170503 & 60 & 20180908 & 169 & 20180414 & 5 & 20180909 & 38 & 20180406 & 131 \\
+		& 20170624 & 31 & 20180912 & 7 & 20180421 & 17 & 20180911 & 12 & 20180407 & 137 \\
+		& 20170701 & 21 & 20180913 & 6 & 20180422 & 3 & 20180912 & 44 & 20180408 & 133 \\
+		& 20170704 & 30 & 20180914 & 19 & 20180425 & 40 & 20180915 & 2 & 20180409 & 149 \\
+		& 20170724 & 26 & 20180915 & 23 & 20180426 & 4 & 20180922 & 238 & 20180411 & 5 \\
+		& 20180403 & 12 & 20180916 & 19 & & & & & 20180413 & 5 \\
+		& 20180406 & 8 & 20180920 & 10 & & & & & 20180414 & 8 \\
+		& 20180407 & 12 & 20180921 & 34 & & & & & 20180416 & 1 \\
+		& 20180413 & 20 & 20180922 & 42 & & & & & 20180418 & 13 \\
+		& 20180414 & 6 & 20180926 & 22 & & & & & 20180421 & 1 \\
+		& 20180421 & 16 & 20180929 & 137 & & & & & 20180422 & 1 \\
+		& & & & & & & & & 20180424 & 1 \\
+		& & & & & & & & & 20180425 & 18 \\
+		& & & & & & & & & 20180428 & 17 \\
+		& & & & & & & & & 20180429 & 8 \\
+		& & & & & & & & & 20180430 & 6 \\ 
+	\end{tabular} 
+	\end{adjustbox}
+	\caption{Dates and numbers of scans for each training and testing datasets. All scans recorded at the XMDL X-band radar in Midlothian, TX. Note, the larger numbers of scans in September 2018 correspond with the first month of data that our model was deployed upon to find scans of interest, with false classifications being placed according to their true label where necessary.}
+	\label{table:bestmodel_data_details}
+\end{table}
+
+As a result of this process, many scans were added to the dataset and allowed some of the overfitting issues seen in the prior sections to be corrected, while gaining classification accuracy.
+The dataset size increase by an order of magnitude, resulting in a total of around 12,000 images being hand-labeled into categories of Stratiform, Convective, and No Precip.
+The dates and counts per date for each scan are detailed in Table \ref{table:bestmodel_data_details} for the sake of future efforts that may require knowledge of particular precipitation regimes in this geographic area and time frame.
+It is clear that even the first pass model that was limited by smaller amounts of independent training data was able to increase the dataset size efficiently and profoundly.
+The majority of labeled scans now encompass April 201 and September 2018.
+
+In the following experiments, this dataset is that which will be utilized.
+
+
 
 \section{BlurPool}
 \label{sec:bestmodel_blurpool}
@@ -51,7 +140,7 @@ This high level of inter-image intercorrelation may lead to instances of overfit
 Storms and weather precipitation events will tend to move slowly across the high-resolution, large geographic sampling area present in each scan, leading to the same or similar echoes occurring in tens of successive scans as represented in Figure \ref{fig:bestmodel_translation}.
 It is thus desirable to not only encourage generalizability to unseen data in a particular classifier, but in this case, to also be resilient to image object translation.
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\begin{subfigure}[b]{0.3\textwidth}
 		\includegraphics[width=\textwidth]{./thesis_code/plots/midlothian.tx-20180421-235038-ref.png}
@@ -240,10 +329,38 @@ k=\frac{1}{N}
 %	\label{table:experiment_results}
 %\end{table*}
 
+Model predictions were primarily evaluated on three criteria that each offer insight into classification ability.
+Specifically, we computed the three-class averaged results for categorical accuracy, precision, and recall.
+Categorical accuracy consists of the ratio of all true positive results to the sum of all datapoints, and is given by
+
+\begin{equation}
+\mathrm{Categorical Accuracy} = \frac{1}{N}\sum_{c=1}^{C}TP_c
+\end{equation}
+
+where TP stands for True Positive and refers to a correct classification, $N$ is the total number of images classified, and $C$ is the number of classes.
+
+Precision is given by
+
+\begin{equation}
+\mathrm{Precision} = \frac{TP}{TP+FP}
+\end{equation}
+
+where $FP$ is the number of False Positives with respect to a class of interest.
+This metric details the percentage of classifications in a category that are the class of interest.
+
+Finally, recall is given by
+
+\begin{equation}
+\mathrm{Recall} = \frac{TP}{TP+FN}
+\end{equation}
+
+where $FN$ is the number of False Negatives with respect to a class of interest.
+
+
 \section{Results}
 \label{sec:bestmodel_results}
 
-\begin{table}[t]
+\begin{table}[ht]
 	\centering
 	\begin{tabular}{ccccc}
 		& & \multicolumn{3}{c}{ Three Class Avg Classification Stats } \\
@@ -272,14 +389,14 @@ k=\frac{1}{N}
 	\label{table:experiment_results}
 \end{table}
 
-\begin{figure}[!t]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=0.85\textwidth]{./thesis_code/plots/precision_recall_curve_all_configs_bw.png}
 	\caption{Precision and Recall statistics for each configuration tested. See Table \ref{table:experiment_results} for configurations corresponding to the names in this figure.}
 	\label{fig:bestmodel_precision_recall_curves}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\begin{subfigure}[b]{0.45\textwidth}
 		\includegraphics[width=\textwidth]{./thesis_code/plots/20191011_BP_k5_BN_loss_bw.png}
@@ -303,7 +420,7 @@ It registered the highest categorical accuracy as well as the highest precision,
 \section{Classifications on Unseen Data}
 \label{sec:bestmodel_newdata}
 
-\begin{figure}[!t]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\textwidth]{./thesis_code/plots/2019_predictions_hist_bw.png}
 	\caption{The fully trained model was deployed on all scans available from 2019 observed and recorded by the CASA XMDL radar. This set of plots shows the statistics on how images were classified for all months together (top left), and each month individually.}
