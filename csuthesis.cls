@@ -610,10 +610,10 @@
 		\begin{center}
 			\ifphd
 				\ifsmallcapsok
-					{\scshape Proposal for Dissertation}
+					{\scshape Dissertation}
 %					{\scshape Dissertation}
 				\else
-					\MakeUppercase{Proposal for Dissertation}
+					\MakeUppercase{Dissertation}
 %					\MakeUppercase{Dissertation}
 				\fi
 			\else

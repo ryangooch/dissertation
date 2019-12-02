@@ -59,9 +59,9 @@ As such, it is urgent and appropriate to explore methods of analyzing the algori
 % Rob: "This dissertation proposal aims to characterize wind turbine clutter with a focus on the dual-polarization signature of wind turbines in the presence of precipitation and ground clutter."
 % First sentence is thesis statement after setting everything up
 
-This dissertation proposal aims to develop an automated method for characterizing the spatial information available in weather radar scan data, utilizing information present in dual-polarimetric radar variables.
-The long-term goal of this research proposal is to develop a set of automated methods to classify precipitation regimes and to illustrate the feasibility of deploying these models on voluminous weather radar datasets to extract insights and populate semantic tags to facilitate Data Discovery.
-This proposal also aims to demonstrate that information available in natural image datasets and the models trained upon these datasets can transfer learning to the domain of weather radar data, allowing researchers to develop their own tools and locate specific atmospheric phenomena of interest by following the techniques presented herein.
+This dissertation aims to develop an automated method for characterizing the spatial information available in weather radar scan data, utilizing information present in dual-polarimetric radar variables.
+The major goal of this research is to develop a set of automated methods to classify precipitation regimes and to illustrate the feasibility of deploying these models on voluminous weather radar datasets to extract insights and populate semantic tags to facilitate Data Discovery.
+This dissertation also aims to demonstrate that information available in natural image datasets and the models trained upon these datasets can transfer learning to the domain of weather radar data, allowing researchers to develop their own tools and locate specific atmospheric phenomena of interest by following the techniques presented herein.
 
 Hand-labeling can and must be employed to generate an initial dataset for training the target task, image classification of precipitation regimes.
 Once this is completed, techniques from the computer vision sub-field of Transfer Learning can be used to train models to learn functions to perform this classification.
@@ -98,13 +98,17 @@ Both shallow and deep networks are discussed in brief as necessary.
 An experiment is performed to select a convolutional base and illustrate the utility of using large models in transfer learning tasks.
 A set of experiments designed to illustrate the learning ability of the selected convolutional base and top model are detailed, utilizing a readily available benchmark dataset called MNIST-Fashion, chosen to mirror both natural images as well as weather radar images.
 Next, the target task of weather radar images are classified according to their corresponding precipitation regimes, using hand-labeled data from a radar in the CASA DFW Urban Testbed of X-band weather radars.
-Finally, relevant concerns are detailed regarding the proposed research of deploying models on data from the rest of the CASA DFW network, using multi-channel data with multiple radar variables to produce pseudo-images that encode greater amounts of information for training and testing, and deploying models on the S-band WSR-88D NEXRAD radars.
+Finally, relevant concerns are detailed regarding the research of deploying models on data from all available 2019 data on the XMDL CASA DFW radar, and examining classifications for accuracy in both individual scans and via climatological examination.
+
+Chapter \ref{sec:bestmodel} expands upon the work in Chapter \ref{sec:classifying} by improving the deep learning architecture with bleeding-edge convolutional neural network layers like BlurPool, and details an experiment to visualize the improvements made by using the BlurPool layer and by adding batch normalization to all convolution blocks in the convolutional base. 
+This chapter also describes the process used to expand the labeled dataset of precipitation regimes in weather radar scans by use of an iterative approach and human-in-the-loop labeling.
+Finally, the best-in-class model is trained and deployed on all available scans from 2019 between January and August, and climatological statistics are examined, which in addition to spot checks, verify the model's capability in satisfactorilly discovering data of interest in these voluminous datasets.
 
 Chapter \ref{sec:realtime} discusses advances in real-time weather radar data, and details the research in implementing weather radar data as a core component of the Cloud-HOsted Real-Time data Services in the geosciences (CHORDS) portal.
 This chapter details a survey of current methods in real-time weather radar data visualization, along with modern cyberinfrastructure concerns related to the storage and visualization of weather radar data.
 The current CF/Radial standard is discussed, as well as the importance in using such standards to promote findability, accessibility, interoperability, and reusability (FAIR) principles in the domain of weather radar data.
 
-Chapter \ref{sec:summary} summarizes the findings so far in this research project, and outlines the proposed research to complete this dissertation.
+Chapter \ref{sec:summary} summarizes the findings so far in this research project, and outlines the potential avenues to continue the work in this burgeoning sub-field with future projects that have been made possible by this effort..
 
 The Appendix \ref{sec:appendix-a-tools} discusses certain practical considerations for deep learning research and their use in this work.
 Additionally outlined are compute capabilities and constraints, bottlenecks and trade-offs.
